@@ -20,8 +20,8 @@ const Icons = (focused: boolean) => ({
 
 export default function TopBarIcon(
   name: string,
-  { size, color, focused }: { size: number; color: string; focused: boolean }
+  { color, focused }: { color: string; focused: boolean }
 ) {
   const Icon = Icons(focused)[name];
-  return <Icon color={color} size={size} />;
+  return <Icon color={color} size={26} />;
 }

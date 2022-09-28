@@ -6,9 +6,9 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
-  createBottomTabNavigator,
-  BottomTabNavigationOptions,
-} from '@react-navigation/bottom-tabs';
+  createMaterialBottomTabNavigator,
+  MaterialBottomTabNavigationOptions,
+} from '@react-navigation/material-bottom-tabs';
 // import GetStarted from '@screens/GetStarted.screen';
 import Home from '@screens/Home.screen';
 import TopBarIcon from '@components/TabBarIcon.component';
@@ -16,26 +16,28 @@ import Search from '@screens/Search.screen';
 import Profile from '@screens/Profile.screen';
 import Library from '@screens/Library.screen';
 
+const Tab = createMaterialBottomTabNavigator();
+
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 // eslint-disable-next-line no-unused-vars
 type OptionProps = (props: {
   route: RouteProp<ParamListBase, string>;
   navigation: any;
-}) => BottomTabNavigationOptions;
+}) => MaterialBottomTabNavigationOptions;
 
 const options: OptionProps = ({ route }) => ({
   tabBarIcon: (props) => TopBarIcon(route.name, { ...props }),
   tabBarActiveTintColor: 'tomato',
-  tabBarInactiveTintColor: 'gray',
+  tabBarInactiveTintColor: 'white',
 });
 
 function BottomTabStack() {
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
+      barStyle={{
+        backgroundColor: '#000000',
+        borderTopColor: '#ffffff',
       }}>
       <Tab.Screen name="Home" component={Home} options={options} />
       <Tab.Screen name="Search" component={Search} options={options} />
