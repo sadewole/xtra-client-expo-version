@@ -3,7 +3,7 @@ import React from 'react';
 
 function Home() {
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-slate-900 text-white flex-1">
       <View>
         <Text>Home</Text>
       </View>

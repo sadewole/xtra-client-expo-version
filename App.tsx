@@ -15,6 +15,8 @@ import TopBarIcon from '@components/TabBarIcon.component';
 import Search from '@screens/Search.screen';
 import Profile from '@screens/Profile.screen';
 import Library from '@screens/Library.screen';
+import { View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -28,13 +30,12 @@ type OptionProps = (props: {
 
 const options: OptionProps = ({ route }) => ({
   tabBarIcon: (props) => TopBarIcon(route.name, { ...props }),
-  tabBarActiveTintColor: 'tomato',
-  tabBarInactiveTintColor: 'white',
 });
 
 function BottomTabStack() {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       barStyle={{
         backgroundColor: '#000000',
         borderTopColor: '#ffffff',
@@ -49,14 +50,18 @@ function BottomTabStack() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        {/* <Stack.Screen name="GetStarted" component={GetStarted} /> */}
-        <Stack.Screen name="HomeScreen" component={BottomTabStack} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <View style={{ flex: 1 }}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            {/* <Stack.Screen name="GetStarted" component={GetStarted} /> */}
+            <Stack.Screen name="HomeScreen" component={BottomTabStack} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </SafeAreaProvider>
   );
 }
