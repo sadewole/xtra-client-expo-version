@@ -8,7 +8,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'import'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/jsx-filename-extension': 'off',
     'react/react-in-jsx-scope': 'off',
