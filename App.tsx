@@ -51,6 +51,7 @@ function BottomTabStack() {
       barStyle={{
         backgroundColor: '#000000',
         borderTopColor: '#ffffff',
+        borderTopWidth: 1,
       }}>
       <Tab.Screen name="Home" component={Home} options={options} />
       <Tab.Screen name="Search" component={Search} options={options} />
