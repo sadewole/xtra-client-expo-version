@@ -1,26 +1,38 @@
-import React from 'react';
+/* eslint-disable camelcase */
+import React, { useCallback } from 'react';
 import {
   NavigationContainer,
   ParamListBase,
   RouteProp,
+  DefaultTheme,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   createMaterialBottomTabNavigator,
   MaterialBottomTabNavigationOptions,
 } from '@react-navigation/material-bottom-tabs';
+import { View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_300Light,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
+import * as SplashScreen from 'expo-splash-screen';
+
 // import GetStarted from '@screens/GetStarted.screen';
 import Home from '@screens/Home.screen';
 import TopBarIcon from '@components/TabBarIcon.component';
 import Search from '@screens/Search.screen';
 import Profile from '@screens/Profile.screen';
 import Library from '@screens/Library.screen';
-import { View } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Tab = createMaterialBottomTabNavigator();
-
 const Stack = createNativeStackNavigator();
+SplashScreen.preventAutoHideAsync();
 
 // eslint-disable-next-line no-unused-vars
 type OptionProps = (props: {
@@ -48,11 +60,36 @@ function BottomTabStack() {
   );
 }
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  },
+};
+
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    PoppinsLight: Poppins_300Light,
+    Poppins: Poppins_400Regular,
+    PoppinsMedium: Poppins_500Medium,
+    PoppinsSemiBold: Poppins_600SemiBold,
+    PoppinsBold: Poppins_700Bold,
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider onLayout={onLayoutRootView}>
       <View style={{ flex: 1 }}>
-        <NavigationContainer>
+        <NavigationContainer theme={theme}>
           <Stack.Navigator
             screenOptions={{
               headerShown: false,

@@ -1,7 +1,6 @@
 import {
   Image,
   SafeAreaView,
-  StatusBar,
   Text,
   TouchableOpacity,
   View,
@@ -14,17 +13,8 @@ import { ArrowRightCircleIcon } from 'react-native-heroicons/outline';
 
 function GetStarted() {
   return (
-    <SafeAreaView
-      className="flex-1"
-      style={{
-        marginTop: StatusBar.currentHeight,
-        paddingTop: StatusBar.currentHeight,
-      }}>
-      <FocusedStatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
+    <SafeAreaView className="flex-1">
+      <FocusedStatusBar barStyle="dark-content" backgroundColor="transparent" />
       <View className="flex-1">
         <Image
           source={bgImage}
