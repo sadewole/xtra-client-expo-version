@@ -5,7 +5,8 @@
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
       "@screens/*": ["screens/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@store/*": ["store/*"]
     },
     "typeRoots": ["node_modules/@types", "./types"]
   },

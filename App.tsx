@@ -22,6 +22,7 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 import * as SplashScreen from 'expo-splash-screen';
+import { Provider } from 'react-redux';
 
 // import GetStarted from '@screens/GetStarted.screen';
 import Home from '@screens/Home.screen';
@@ -29,6 +30,7 @@ import TopBarIcon from '@components/TabBarIcon.component';
 import Search from '@screens/Search.screen';
 import Profile from '@screens/Profile.screen';
 import Library from '@screens/Library.screen';
+import { store } from '@store/index';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -89,17 +91,19 @@ export default function App() {
   }
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
-      <View style={{ flex: 1 }}>
-        <NavigationContainer theme={theme}>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}>
-            {/* <Stack.Screen name="GetStarted" component={GetStarted} /> */}
-            <Stack.Screen name="HomeScreen" component={BottomTabStack} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <NavigationContainer theme={theme}>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}>
+              {/* <Stack.Screen name="GetStarted" component={GetStarted} /> */}
+              <Stack.Screen name="HomeScreen" component={BottomTabStack} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </Provider>
     </SafeAreaProvider>
   );
 }
