@@ -15,6 +15,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
+    'react/require-default-props': 'off',
   },
   settings: {
     'import/resolver': {

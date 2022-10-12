@@ -19,7 +19,10 @@ export const api = createApi({
   baseQuery: baseQueryWithRetry,
   endpoints: (build) => ({
     getTopCharts: build.query({ query: () => 'charts/world' }),
+    getCity: build.query({
+      query: (cityId) => `charts/city?city_id=${cityId}`,
+    }),
   }),
 });
 
-export const { useGetTopChartsQuery } = api;
+export const { useGetTopChartsQuery, useGetCityQuery } = api;

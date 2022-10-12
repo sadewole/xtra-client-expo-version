@@ -4,7 +4,7 @@ import {
   StatusBar,
   Text,
   ScrollView,
-  FlatList,
+  Image,
 } from 'react-native';
 import React from 'react';
 import Lottie from 'lottie-react-native';
@@ -12,11 +12,13 @@ import Lottie from 'lottie-react-native';
 import FocusedStatusBar from '@components/FocusedStatusBar.component';
 import { useGetTopChartsQuery } from '@store/services/api';
 import SectionalArea from '@components/SectionalArea.component';
-import FavoriteArtist from '@components/FavoriteArtist.component';
 import ChartList from '@components/ChartList.component';
+import CityList from '@components/CityList.component';
 
 import RippleAnimation from '@assets/ripple-animation.json';
-import { favoriteArtist } from '../constant/dummy';
+
+import globeImg from '@assets/globe.jpg';
+import WorldGenre from '@components/WorldGenre.component';
 // import logo from '@assets/xtra-logo.png';
 
 function Home() {
@@ -36,7 +38,7 @@ function Home() {
       <ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}>
-        <View className="py-2 mx-4">
+        <View className="py-2 mx-4 mb-4">
           {/* <Image source={logo} className="h-7 w-[100px]  p-4 rounded-full" /> */}
           <Text className="text-white font-poppinsMedium text-2xl mb-1">
             Hello Grace!
@@ -46,18 +48,8 @@ function Home() {
           </Text>
         </View>
 
-        <SectionalArea title="Your favourite artist">
-          <FlatList
-            horizontal
-            data={favoriteArtist}
-            renderItem={({ item }) => <FavoriteArtist data={item} />}
-            keyExtractor={(item) => item.id}
-            showsHorizontalScrollIndicator={false}
-            className="px-4"
-            ListFooterComponent={<View style={{ width: 15 }} />}
-          />
-        </SectionalArea>
-        <View className="mt-8 mx-4">
+        <WorldGenre />
+        <View className="mb-8 mx-4">
           <Text className="text-white font-poppinsMedium text-xl mb-5">
             Tap to identify song
           </Text>
@@ -75,6 +67,27 @@ function Home() {
             <ChartList loading={isLoading} data={data} />
           </SectionalArea>
         )}
+        <View className="w-full h-[250px] relative rounded-md overflow-hidden mb-8">
+          <Text className="font-poppinsBold text-white text-5xl z-10 mt-12 p-4">
+            WORLD{'\n'}CHART
+          </Text>
+          <Image source={globeImg} className="w-full h-full absolute" />
+        </View>
+        <View>
+          <Text className="text-white font-poppinsMedium text-xl mx-4">
+            Trending by cities
+          </Text>
+          {/** Germany */}
+          <CityList id="2950159" city="Berlin" />
+          {/** USA */}
+          <CityList id="5128581" city="New York City" />
+          {/** South Africa */}
+          <CityList id="993800" city="Johannesburg" />
+          {/** UK */}
+          <CityList id="2643743" city="London" />
+          {/** Australia */}
+          <CityList id="2147714" city="Sydney" />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
