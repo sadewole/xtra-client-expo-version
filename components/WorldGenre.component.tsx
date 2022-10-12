@@ -1,14 +1,18 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { genres } from '../constant/genres';
 import SectionalArea from './SectionalArea.component';
 
 function Genre({ id, value }: { id: string; value: string }) {
-  console.log(id);
+  const handlePress = () => {
+    console.log(id);
+  };
   return (
-    <View>
-      <Text>{value}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={handlePress}
+      className="w-24 h-24 justify-center items-center mr-4 bg-red-500 p-2 rounded-md">
+      <Text className="font-poppinsLight text-white text-sm">{value}</Text>
+    </TouchableOpacity>
   );
 }
 

@@ -53,7 +53,7 @@ export const genres = [
   },
   {
     id: 'FILM_TV',
-    value: 'FILM_TV',
+    value: 'FILM TV',
   },
   {
     id: 'WORLDWIDE',
