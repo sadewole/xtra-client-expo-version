@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React, { ReactNode } from 'react';
-import { ChevronRightIcon } from 'react-native-heroicons/outline';
+// import { ChevronRightIcon } from 'react-native-heroicons/outline';
 
 interface Props {
   title: string;
@@ -18,7 +18,10 @@ function SectionalArea({ title, children, smTitle }: Props) {
           }`}>
           {title}
         </Text>
-        <ChevronRightIcon color="white" className="font-semibold" />
+        <Text className="text-white pl-2.5 pr-2 rounded-full border border-gray-700">
+          more
+        </Text>
+        {/* <ChevronRightIcon color="white" className="font-semibold" /> */}
       </View>
       {children}
     </View>
