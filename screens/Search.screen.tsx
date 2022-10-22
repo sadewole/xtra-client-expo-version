@@ -3,7 +3,7 @@ import React from 'react';
 
 function Search() {
   return (
-    <View>
+    <View className="bg-red-500">
       <Text>Search</Text>
     </View>
   );

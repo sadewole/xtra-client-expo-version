@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { MusicData } from './types';
 
 const truncateText = (text: string) => {
@@ -16,8 +17,11 @@ export function SongCard({
   shrink?: boolean;
   data: MusicData;
 }) {
+  const navigation = useNavigation();
   return (
-    <View className={`${shrink ? 'w-[180px]' : 'w-[200px]'} px-4`}>
+    <TouchableOpacity
+      className={`${shrink ? 'w-[180px]' : 'w-[200px]'} px-4`}
+      onPress={() => navigation.navigate('PlayModalScreen')}>
       <Image
         source={{ uri: data.images?.coverart }}
         resizeMode="cover"
@@ -29,6 +33,6 @@ export function SongCard({
       <Text className="text-gray-500 font-poppins truncate">
         {truncateText(data.subtitle)}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }

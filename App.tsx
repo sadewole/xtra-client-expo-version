@@ -31,6 +31,7 @@ import Search from '@screens/Search.screen';
 import Profile from '@screens/Profile.screen';
 import Library from '@screens/Library.screen';
 import { store } from '@store/index';
+import Player from '@screens/Player.screen';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -100,6 +101,11 @@ export default function App() {
               }}>
               {/* <Stack.Screen name="GetStarted" component={GetStarted} /> */}
               <Stack.Screen name="HomeScreen" component={BottomTabStack} />
+              <Stack.Screen
+                name="PlayModalScreen"
+                component={Player}
+                options={{ presentation: 'fullScreenModal' }}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
