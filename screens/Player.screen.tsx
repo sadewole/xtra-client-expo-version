@@ -6,7 +6,6 @@ import {
   EllipsisVerticalIcon,
 } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
-// import FocusedStatusBar from '@components/FocusedStatusBar.component';
 import Slider from '@react-native-community/slider';
 import { FontAwesome5, Ionicons, FontAwesome } from '@expo/vector-icons';
 
