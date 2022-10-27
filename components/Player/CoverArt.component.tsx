@@ -1,4 +1,4 @@
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Image, Dimensions, Animated } from 'react-native';
 import React from 'react';
 
 type Props = {
@@ -12,7 +12,7 @@ const { width } = Dimensions.get('window');
 
 function CoverArt({ currentSong }: Props) {
   return (
-    <View
+    <Animated.View
       style={{
         width,
         justifyContent: 'center',
@@ -31,7 +31,7 @@ function CoverArt({ currentSong }: Props) {
           )}
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

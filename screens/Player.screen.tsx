@@ -1,5 +1,14 @@
-import { View, Text, Pressable, FlatList } from 'react-native';
-import React from 'react';
+import { View, Text, Pressable, Animated, Dimensions } from 'react-native';
+import TrackPlayer, {
+  // Capability,
+  // Event,
+  // RepeatMode,
+  State,
+  usePlaybackState,
+  // useProgress,
+  // useTrackPlayerEvents,
+} from 'react-native-track-player';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTypedSelector } from '@store/index';
 import {
   ChevronDownIcon,
@@ -10,15 +19,53 @@ import { FontAwesome } from '@expo/vector-icons';
 import Control from '@components/Player/Control.component';
 import TrackProgress from '@components/Player/TrackProgress.component';
 import CoverArt from '@components/Player/CoverArt.component';
-import { useGetTopChartsQuery } from '@store/services/api';
+
+const { width } = Dimensions.get('window');
+
+const setupPlayer = async (songsData: any[]) => {
+  try {
+    await TrackPlayer.setupPlayer();
+    await TrackPlayer.add(songsData);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const togglePlayback = async (playbackState: State) => {
+  const currentTrack = await TrackPlayer.getCurrentTrack();
+  if (currentTrack !== null) {
+    if (playbackState === State.Paused) {
+      await TrackPlayer.play();
+    } else {
+      await TrackPlayer.pause();
+    }
+  }
+};
 
 function Player() {
-  const { data } = useGetTopChartsQuery({});
-
-  const { currentSong } = useTypedSelector((state) => state.player);
+  const {
+    // currentSong,
+    currentSongsList: data,
+    currentIndex,
+  } = useTypedSelector((state) => state.player);
   const navigation = useNavigation();
 
-  const splitColor = currentSong?.images?.joecolor.split(':');
+  const [songIndex, setSongIndex] = useState<number>(currentIndex);
+
+  const scrollX = useRef(new Animated.Value(0)).current;
+
+  const playbackState = usePlaybackState();
+
+  useEffect(() => {
+    setupPlayer(data);
+
+    scrollX.addListener(({ value }) => {
+      const index = Math.round(value / width);
+      setSongIndex(index);
+    });
+  }, []);
+
+  const splitColor = data[songIndex]?.images?.joecolor.split(':');
   const backgroundColor = splitColor
     ? `#${splitColor[splitColor.length - 1]}`
     : '#1f2937';
@@ -34,25 +81,40 @@ function Player() {
             <EllipsisVerticalIcon color="white" />
           </Pressable>
         </View>
-        <FlatList
+        <Animated.FlatList
           renderItem={({ item }) => <CoverArt currentSong={item} />}
           data={data}
+          initialScrollIndex={songIndex}
+          getItemLayout={(_, index) => ({
+            length: width,
+            offset: width * index,
+            index,
+          })}
           keyExtractor={(item) => item.key}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
-          onScroll={() => {}}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: { x: scrollX },
+                },
+              },
+            ],
+            { useNativeDriver: true }
+          )}
         />
 
         <View className="px-4 py-6 bg-black/50 rounded-t-2xl">
           <View className="flex-row">
             <View className="flex-1">
               <Text className="text-white font-poppinsSemiBold text-xl">
-                {currentSong?.title}
+                {data[songIndex]?.title}
               </Text>
               <Text className="text-gray-300 font-poppinsMedium truncate">
-                {currentSong?.subtitle}
+                {data[songIndex]?.subtitle}
               </Text>
             </View>
             <FontAwesome name="heart-o" size={24} color="white" />
@@ -61,7 +123,10 @@ function Player() {
           {/* Track progress */}
           <TrackProgress />
           {/* Controls */}
-          <Control />
+          <Control
+            playbackState={playbackState}
+            togglePlayback={togglePlayback}
+          />
         </View>
       </View>
     </View>

@@ -14,17 +14,21 @@ const truncateText = (text: string) => {
 
 export function SongCard({
   shrink,
+  song,
   data,
+  index,
 }: {
   shrink?: boolean;
-  data: MusicData;
+  song: MusicData;
+  data: MusicData[];
+  index: number;
 }) {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
   const onPress = () => {
-    dispatch(setCurrentSong(data));
-    console.log(data);
+    // dispatch(setCurrentSong(data));
+    dispatch(setCurrentSong({ song, data, index }));
     return navigation.navigate('PlayModalScreen');
   };
 
@@ -33,15 +37,15 @@ export function SongCard({
       className={`${shrink ? 'w-[180px]' : 'w-[200px]'} px-4`}
       onPress={onPress}>
       <Image
-        source={{ uri: data.images?.coverart }}
+        source={{ uri: song.images?.coverart }}
         resizeMode="cover"
         className={`w-full ${shrink ? 'h-40' : 'h-48'} mb-2 rounded-md`}
       />
       <Text className="text-white font-poppins">
-        {truncateText(data.title)}
+        {truncateText(song.title)}
       </Text>
       <Text className="text-gray-500 font-poppins truncate">
-        {truncateText(data.subtitle)}
+        {truncateText(song.subtitle)}
       </Text>
     </TouchableOpacity>
   );

@@ -21,7 +21,9 @@ function CityList({ id, city }: { id: string; city: string }) {
       <FlatList
         horizontal
         data={data.slice(0, 10)}
-        renderItem={({ item }) => <SongCard data={item} shrink />}
+        renderItem={({ item, index }) => (
+          <SongCard song={item} data={data} index={index} shrink />
+        )}
         keyExtractor={(item) => item.key}
         showsHorizontalScrollIndicator={false}
       />

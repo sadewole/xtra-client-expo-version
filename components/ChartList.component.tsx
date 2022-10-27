@@ -19,7 +19,9 @@ function ChartList({ loading, data }: ChartListProps) {
     <FlatList
       horizontal
       data={data.slice(0, 10)}
-      renderItem={({ item }) => <SongCard data={item} />}
+      renderItem={({ item, index }) => (
+        <SongCard song={item} data={data} index={index} />
+      )}
       keyExtractor={(item) => item.key}
       showsHorizontalScrollIndicator={false}
     />
