@@ -8,3 +8,4 @@ export { default as img7 } from './img7.jpg';
 export { default as img8 } from './img8.jpg';
 export { default as img9 } from './img9.jpg';
 export { default as img10 } from './img10.jpg';
+export { default as img11 } from './img11.jpg';
