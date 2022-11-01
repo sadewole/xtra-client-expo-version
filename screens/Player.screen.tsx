@@ -1,13 +1,5 @@
 import { View, Text, Pressable, Animated, Dimensions } from 'react-native';
-import TrackPlayer, {
-  // Capability,
-  // Event,
-  // RepeatMode,
-  State,
-  usePlaybackState,
-  // useProgress,
-  // useTrackPlayerEvents,
-} from 'react-native-track-player';
+// import TrackPlayer from 'react-native-track-player'; // useTrackPlayerEvents, // useProgress, // usePlaybackState, // State, // RepeatMode, // Event, // Capability,
 import React, { useEffect, useRef, useState } from 'react';
 import { useTypedSelector } from '@store/index';
 import {
@@ -16,31 +8,32 @@ import {
 } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
-import Control from '@components/Player/Control.component';
+// import Control from '@components/Player/Control.component';
 import TrackProgress from '@components/Player/TrackProgress.component';
 import CoverArt from '@components/Player/CoverArt.component';
 
 const { width } = Dimensions.get('window');
 
-const setupPlayer = async (songsData: any[]) => {
-  try {
-    await TrackPlayer.setupPlayer();
-    await TrackPlayer.add(songsData);
-  } catch (err) {
-    console.log(err);
-  }
-};
+// const setupPlayer = async (songsData: any[]) => {
+//   console.log('songsData', songsData);
+//   try {
+//     // await TrackPlayer.setupPlayer();
+//     // await TrackPlayer.add(songsData);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
-const togglePlayback = async (playbackState: State) => {
-  const currentTrack = await TrackPlayer.getCurrentTrack();
-  if (currentTrack !== null) {
-    if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    } else {
-      await TrackPlayer.pause();
-    }
-  }
-};
+// const togglePlayback = async (playbackState: State) => {
+//   const currentTrack = await TrackPlayer.getCurrentTrack();
+//   if (currentTrack !== null) {
+//     if (playbackState === State.Paused) {
+//       await TrackPlayer.play();
+//     } else {
+//       await TrackPlayer.pause();
+//     }
+//   }
+// };
 
 function Player() {
   const {
@@ -52,18 +45,20 @@ function Player() {
 
   const [songIndex, setSongIndex] = useState<number>(currentIndex);
 
-  const scrollX = useRef(new Animated.Value(0)).current;
+  const scrollX = useRef(new Animated.Value(songIndex * width)).current;
 
-  const playbackState = usePlaybackState();
+  // const playbackState = usePlaybackState();
 
   useEffect(() => {
-    setupPlayer(data);
-
     scrollX.addListener(({ value }) => {
       const index = Math.round(value / width);
       setSongIndex(index);
     });
   }, []);
+
+  // useEffect(() => {
+  //   setupPlayer(data);
+  // }, []);
 
   const splitColor = data[songIndex]?.images?.joecolor.split(':');
   const backgroundColor = splitColor
@@ -95,6 +90,7 @@ function Player() {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
+          onScrollToIndexFailed={() => {}}
           onScroll={Animated.event(
             [
               {
@@ -123,10 +119,10 @@ function Player() {
           {/* Track progress */}
           <TrackProgress />
           {/* Controls */}
-          <Control
+          {/* <Control
             playbackState={playbackState}
             togglePlayback={togglePlayback}
-          />
+          /> */}
         </View>
       </View>
     </View>
