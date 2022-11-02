@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Animated, Dimensions } from 'react-native';
-// import TrackPlayer from 'react-native-track-player'; // useTrackPlayerEvents, // useProgress, // usePlaybackState, // State, // RepeatMode, // Event, // Capability,
+import TrackPlayer from 'react-native-track-player'; // useTrackPlayerEvents, // useProgress, // usePlaybackState, // State, // RepeatMode, // Event, // Capability,
 import React, { useEffect, useRef, useState } from 'react';
 import { useTypedSelector } from '@store/index';
 import {
@@ -14,15 +14,14 @@ import CoverArt from '@components/Player/CoverArt.component';
 
 const { width } = Dimensions.get('window');
 
-// const setupPlayer = async (songsData: any[]) => {
-//   console.log('songsData', songsData);
-//   try {
-//     // await TrackPlayer.setupPlayer();
-//     // await TrackPlayer.add(songsData);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+const setupPlayer = async (songsData: any[]) => {
+  try {
+    await TrackPlayer.setupPlayer();
+    await TrackPlayer.add(songsData);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // const togglePlayback = async (playbackState: State) => {
 //   const currentTrack = await TrackPlayer.getCurrentTrack();
@@ -54,11 +53,9 @@ function Player() {
       const index = Math.round(value / width);
       setSongIndex(index);
     });
-  }, []);
 
-  // useEffect(() => {
-  //   setupPlayer(data);
-  // }, []);
+    setupPlayer(data);
+  }, []);
 
   const splitColor = data[songIndex]?.images?.joecolor.split(':');
   const backgroundColor = splitColor
