@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Animated, Dimensions } from 'react-native';
-import TrackPlayer from 'react-native-track-player'; // useTrackPlayerEvents, // useProgress, // usePlaybackState, // State, // RepeatMode, // Event, // Capability,
+// import TrackPlayer from 'react-native-track-player'; // useTrackPlayerEvents, // useProgress, // usePlaybackState, // State, // RepeatMode, // Event, // Capability,
 import React, { useEffect, useRef, useState } from 'react';
 import { useTypedSelector } from '@store/index';
 import {
@@ -8,20 +8,20 @@ import {
 } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
-// import Control from '@components/Player/Control.component';
+import Control from '@components/Player/Control.component';
 import TrackProgress from '@components/Player/TrackProgress.component';
 import CoverArt from '@components/Player/CoverArt.component';
 
 const { width } = Dimensions.get('window');
 
-const setupPlayer = async (songsData: any[]) => {
-  try {
-    await TrackPlayer.setupPlayer();
-    await TrackPlayer.add(songsData);
-  } catch (err) {
-    console.log(err);
-  }
-};
+// const setupPlayer = async (songsData: any[]) => {
+//   try {
+//     await TrackPlayer.setupPlayer();
+//     await TrackPlayer.add(songsData);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 // const togglePlayback = async (playbackState: State) => {
 //   const currentTrack = await TrackPlayer.getCurrentTrack();
@@ -54,7 +54,7 @@ function Player() {
       setSongIndex(index);
     });
 
-    setupPlayer(data);
+    // setupPlayer(data);
   }, []);
 
   const splitColor = data[songIndex]?.images?.joecolor.split(':');
@@ -116,10 +116,7 @@ function Player() {
           {/* Track progress */}
           <TrackProgress />
           {/* Controls */}
-          {/* <Control
-            playbackState={playbackState}
-            togglePlayback={togglePlayback}
-          /> */}
+          <Control />
         </View>
       </View>
     </View>
